@@ -2,7 +2,6 @@ package com.rousetime.android_startup
 
 import android.content.Context
 import android.os.Looper
-import android.text.TextUtils
 import androidx.core.os.TraceCompat
 import com.rousetime.android_startup.annotation.MultipleProcess
 import com.rousetime.android_startup.dispatcher.StartupManagerDispatcher
@@ -138,7 +137,7 @@ class StartupManager private constructor(
         fun build(context: Context): StartupManager {
             val realStartupList = mutableListOf<AndroidStartup<*>>()
             mStartupList.forEach {
-                val process = it::class.java.getAnnotation(MultipleProcess::class.java)?.process ?: arrayOf()
+                val process = it::class.java.getAnnotation(MultipleProcess::class.java)?.process
                 if (process.isNullOrEmpty() || ProcessUtils.isMultipleProcess(context, process)) {
                     realStartupList.add(it)
                     if (it.waitOnMainThread() && !it.callCreateOnMainThread()) {
